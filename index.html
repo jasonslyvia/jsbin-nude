@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html id="jsbin" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin Nude - Collaborative JavaScript Debugging</title>
+  <link rel="alternate" type="application/json+oembed" href="oembed?url=?html,output">
+  <link rel="icon" href="images/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/flat-ui.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--[if lte IE 9 ]><link rel="stylesheet" href="css/ie.css"><![endif]-->
+</head>
+<!--[if lt IE 7]>  <body class="source ie ie6"> <![endif]-->
+<!--[if IE 7]>     <body class="source ie ie7"> <![endif]-->
+<!--[if gt IE 7]>  <body class="source ie">     <![endif]-->
+<!--[if !IE]><!--> <body class="source public">    <!--<![endif]-->
+
+<div id="control">
+  <div class="control">
+    <div id="menuinfo"><p></p></div>
+    <div class="buttons">
+        <div class="menu">
+          <span class="button group">Add library
+          <select id="library"></select>
+          </span>
+        </div>
+      <div id="panels"></div>
+    </div>
+  </div>
+</div>
+<div id="bin" class="stretch" style="opacity: 0; filter:alpha(opacity=0);">
+  <div id="source" class="binview stretch">
+  </div>
+  <div id="panelswaiting">
+    <div class="code stretch html panel">
+      <div class="label menu"><span class="name"><strong><a href="#htmlprocessors" class="fake-dropdown button-dropdown">HTML</a></strong></span><div class="dropdown" id="htmlprocessors">
+          <div class="dropdownmenu processorSelector" data-type="html">
+            <a href="#html">HTML</a>
+            <a href="#markdown">Markdown</a>
+            <a href="#jade">Jade</a>
+            <a href="#convert">Convert to HTML</a>
+          </div>
+        </div>
+      </div>
+      <div class="editbox">
+        <textarea aria-label="HTML Code Panel" spellcheck="false" autocapitalize="none" autocorrect="off" id="html"></textarea>
+      </div>
+    </div>
+    <div class="code stretch javascript panel">
+      <div class="label menu"><span class="name"><strong><a  class="fake-dropdown button-dropdown" href="#javascriptprocessors">JavaScript</a></strong></span>
+        <div class="dropdown" id="javascriptprocessors">
+          <div class="dropdownmenu processorSelector" data-type="javascript">
+            <a href="#javascript">JavaScript</a>
+            <a href="#coffeescript">CoffeeScript</a>
+            <a href="#jsx">JSX (React)</a>
+            <a href="#to5">6to5</a>
+            <a href="#traceur">Traceur</a>
+            <a href="#typescript">TypeScript</a>
+            <a href="#processing">Processing</a>
+            <a href="#livescript">LiveScript</a>
+            <a href="#convert">Convert to JavaScript</a>
+          </div>
+        </div>
+      </div>
+      <div class="editbox">
+        <textarea aria-label="JavaScript Code Panel" spellcheck="false" autocapitalize="none" autocorrect="off" id="javascript"></textarea>
+      </div>
+    </div>
+    <div class="code stretch css panel">
+      <div class="label menu"><span class="name"><strong><a class="fake-dropdown button-dropdown" href="#cssprocessors">CSS</a></strong></span>
+        <div class="dropdown" id="cssprocessors">
+          <div class="dropdownmenu processorSelector" data-type="css">
+            <a href="#css">CSS</a>
+            <a href="#less">Less</a>
+            <a href="#myth">Myth</a>
+
+            <a href="#sass" data-label="Sass">Sass <span class="small">with Compass</span></a>
+            <a href="#scss" data-label="SCSS">SCSS <span class="small">with Compass</span></a>
+
+            <a href="#stylus">Stylus</a>
+            <a href="#convert">Convert to CSS</a>
+          </div>
+        </div>
+      </div>
+      <div class="editbox">
+        <textarea aria-label="CSS Code Panel" spellcheck="false" autocapitalize="none" autocorrect="off" id="css"></textarea>
+      </div>
+    </div>
+    <div class="stretch console panel">
+      <div class="label">
+        <span class="name"><strong>Console</strong></span>
+        <span class="options">
+          <button id="runconsole" title="ctrl + enter">Run</button>
+          <button id="clearconsole" title="ctrl + l">Clear</button>
+        </span>
+      </div>
+      <div id="console" class="stretch"><ul id="output"></ul><form>
+          <textarea aria-label="Console Panel" id="exec" spellcheck="false" autocapitalize="none" rows="1" autocorrect="off"></textarea>
+      </form></div>
+    </div>
+    <div id="live" class="stretch live panel">
+      <div class="label">
+        <span class="name"><strong>Output</strong></span>
+        <span class="options">
+          <button id="runwithalerts" title="ctrl + enter
+Include alerts, prompts &amp; confirm boxes">Run with JS</button>
+          <label>Auto-run JS<input type="checkbox" id="enablejs"></label>
+          <a target="_blank" title="Live preview" id="jsbinurl" class="hidden" href=""><img src="images/popout.png"></a>
+        </span>
+        <span class="size"></span>
+      </div>
+    </div>
+  </div>
+
+  <form id="saveform" method="post" action="/save">
+    <input type="hidden" name="method">
+    <input type="hidden" name="_csrf" value="ByNpM7vVtJI88pBRFlzPSIC8">
+  </form>
+
+</div>
+<div id="tip" class=" notification">
+  <p>
+
+    You can jump to the latest bin by adding <code>/latest</code> to your URL
+  </p>
+  <a class="dismiss" href="#">Dismiss x</a>
+</div>
+<div id="keyboardHelp" class="modal">
+  <div>
+    <h2>Keyboard Shortcuts</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="shortcut">Shortcut</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ctrl + [num]</td>
+          <td>Toggle nth panel</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <small>
+              <input type="checkbox" id="enablealt" class="enablealt">
+              <label for="enablealt">Require alt key, leaving cmd+1, 2 etc for tab switching.</label>
+            </small>
+          </td>
+        </tr>
+        <tr>
+          <td>ctrl + 0</td>
+          <td>Close focused panel</td>
+        </tr>
+        <tr>
+          <td>ctrl + enter</td>
+          <td>Re-render output.<br>If console visible: run JS in console</td>
+        </tr>
+        <tr>
+          <td>Ctrl + l</td>
+          <td>Clear the console</td>
+        </tr>
+        <tr>
+          <td>ctrl + /</td>
+          <td>Toggle comment on selected lines</td>
+        </tr>
+        <tr>
+          <td>ctrl + [</td>
+          <td>Indents selected lines</td>
+        </tr>
+        <tr>
+          <td>ctrl + ]</td>
+          <td>Unindents selected lines</td>
+        </tr>
+        <tr>
+          <td>tab</td>
+          <td>Code complete &amp; <a href="http://docs.emmet.io/" target="_blank">Emmet</a> expand</td>
+        </tr>
+        <tr>
+          <td>ctrl + shift + L</td>
+          <td>Beautify code in active panel</td>
+        </tr>
+        <tr>
+          <td>ctrl + s</td>
+          <td>Save &amp; lock current Bin from further changes</td>
+        </tr>
+        <tr>
+          <td>ctrl + shift + s</td>
+          <td>Open the share options</td>
+        </tr>
+        <tr>
+          <td>ctrl + y</td>
+          <td>Archive Bin</td>
+        </tr>
+        <tr><td colspan="2"><small><br><a href="help/keyboard-shortcuts" target="_blank">Complete list of JS Bin shortcuts</a></small></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--[if lte IE 8]>
+<script src="js/vendor/jshint/jshint.old.min.js"></script>
+<script> document.write('<!--'); </script>
+<![endif]-->
+
+  <script src="js/vendor/jshint/jshint.min.js"></script>
+  -->
+  <script src="js/vendor/jquery-1.11.0.min.js"></script>
+
+  <script>
+  window.template = {"html":"<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <title>JS Bin</title>\n</head>\n<body>\n\n</body>\n</html>","css":"","javascript":"","url":"http://localhost:3000"};
+  window.jsbin = {"root":"http://localhost:3000","shareRoot":"http://localhost:3000","runner":"runner.html","static":"http://localhost:3000","version":"3.25.15","state":{"title":"","description":"","token":"ByNpM7vVtJI88pBRFlzPSIC8","stream":false,"streaming":false,"code":null,"revision":null,"processors":{},"checksum":null,"metadata":{},"latest":false},"name":"JS Bin","settings":{"panels":[]},"user":{"settings":{}}};
+  </script>
+  <script src="js/chrome/hashbang-jump.js"></script>
+  <script src="js/vendor/rsvp.js"></script>
+  <script src="js/vendor/jquery-migrate.js"></script>
+  <script src="js/vendor/pretty-date.js"></script>
+  <script src="js/vendor/polyfills.js"></script>
+  <script src="js/vendor/codemirror4/lib/codemirror.js"></script>
+  <script src="js/vendor/codemirror4/mode/xml/xml.js"></script>
+  <script src="js/vendor/codemirror4/mode/css/css.js"></script>
+  <script src="js/vendor/codemirror4/mode/javascript/javascript.js"></script>
+  <script src="js/vendor/codemirror4/mode/htmlmixed/htmlmixed.js"></script>
+  <script src="js/vendor/cm_addons/emmet.js"></script>
+  <script src="js/vendor/codemirror4/addon/dialog/dialog.js"></script>
+  <script src="js/vendor/codemirror4/addon/search/searchcursor.js"></script>
+  <script src="js/vendor/codemirror4/addon/search/search.js"></script>
+  <script src="js/vendor/cm_addons/simple-hint.js"></script>
+  <script src="js/vendor/codemirror4/addon/hint/anyword-hint.js"></script>
+  <script src="js/vendor/cm_addons/javascript-hint.js"></script>
+  <script src="js/vendor/codemirror4/addon/edit/matchbrackets.js"></script>
+  <script src="js/vendor/codemirror4/addon/comment/comment.js"></script>
+  <script src="js/vendor/cm_addons/lint/javascript-lint.js"></script>
+  <script src="js/vendor/cm_addons/lint/lint.js"></script>
+  <script src="js/vendor/lz-string-1.3.3.js"></script>
+  <script src="js/vendor/cm_addons/cm-highlight-line.js"></script>
+  <script src="js/editors/snippets.cm.js"></script>
+  <script src="js/vendor/json2.js"></script>
+  <script src="js/vendor/bin-to-file.min.js"></script>
+  <script src="js/vendor/prettyprint.js"></script>
+  <script src="js/vendor/loop-protect.min.js"></script>
+  <script src="js/vendor/s3upload.js"></script>
+  <script src="js/chrome/storage.js"></script>
+  <script src="js/jsbin.js"></script>
+  <script src="js/editors/mobileCodeMirror.js"></script>
+  <script src="js/chrome/splitter.js"></script>
+  <script src="js/chrome/analytics.js"></script>
+  <script src="js/chrome/settings.js"></script>
+  <script src="js/chrome/font.js"></script>
+  <script src="js/render/title.js"></script>
+  <script src="js/render/render.js"></script>
+  <script src="js/render/live.js"></script>
+  <script src="js/editors/keycontrol.js"></script>
+  <script src="js/render/console.js"></script>
+  <script src="js/processors/processor.js"></script>
+  <script src="js/editors/panel.js"></script>
+  <script src="js/editors/editors.js"></script>
+  <script src="js/editors/libraries.js"></script>
+  <script src="js/editors/library.js"></script>
+  <script src="js/editors/addons.js"></script>
+  <script src="js/editors/snapshot.js"></script>
+  <script src="js/editors/beautify.js"></script>
+  <script src="js/render/saved-history-preview.js"></script>
+  <script src="js/chrome/share.js"></script>
+  <script src="js/chrome/esc.js"></script>
+  <script src="js/chrome/issue.js"></script>
+  <script src="js/chrome/download.js"></script>
+  <script src="js/chrome/login.js"></script>
+  <script src="js/chrome/tips.js"></script>
+  <script src="js/chrome/keys.js"></script>
+  <script src="js/chrome/save.js"></script>
+  <script src="js/chrome/navigation.js"></script>
+  <script src="js/chrome/file-drop.js"></script>
+  <script src="js/chrome/gist.js"></script>
+  <script src="js/chrome/spinner.js"></script>
+  <script src="js/chrome/infocard.js"></script>
+  <script src="js/chrome/last-bin.js"></script>
+  <script src="js/chrome/archive.js"></script>
+  <script src="js/chrome/welcome-panel.js"></script>
+  <script src="js/chrome/help-search.js"></script>
+  <script src="js/chrome/app.js"></script>
+  <script src="js/vendor/cm_addons/tern.js"></script>
+  <script src="js/vendor/acorn/acorn.js"></script>
+  <script src="js/vendor/acorn/acorn_loose.js"></script>
+  <script src="js/vendor/acorn/util/walk.js"></script>
+  <script src="js/vendor/tern/lib/signal.js"></script>
+  <script src="js/vendor/tern/lib/tern.js"></script>
+  <script src="js/vendor/tern/lib/def.js"></script>
+  <script src="js/vendor/tern/lib/comment.js"></script>
+  <script src="js/vendor/tern/lib/infer.js"></script>
+  <script src="js/vendor/tern/plugin/doc_comment.js"></script>
+  <script src="js/editors/defs.js"></script>
+  <script src="js/editors/definitions.js"></script>
+  <script src="js/editors/tern.js"></script>
+</body>
+</html>
