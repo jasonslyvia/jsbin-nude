@@ -1,0 +1,24 @@
+{
+  "name": "jsbin-nude",
+  "version": "1.0.0",
+  "description": "JS Bin without backend dependency",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jasonslyvia/jsbin-nude.git"
+  },
+  "keywords": [
+    "jsbin",
+    "jsfiddle",
+    "codepen"
+  ],
+  "author": "jasonslyvia <jasonslyvia@gmail.com> (http://undefinedblog.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jasonslyvia/jsbin-nude/issues"
+  },
+  "homepage": "https://github.com/jasonslyvia/jsbin-nude"
+}
