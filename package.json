@@ -1,6 +1,6 @@
 {
   "name": "jsbin-nude",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JS Bin without backend dependency",
   "main": "index.html",
   "scripts": {
@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/jasonslyvia/jsbin-nude/issues"
   },
-  "homepage": "https://github.com/jasonslyvia/jsbin-nude"
+  "homepage": "https://github.com/jasonslyvia/jsbin-nude",
+  "devDependencies": {
+    "browser-sync": "^2.4.0",
+    "gulp": "^3.8.11"
+  }
 }
